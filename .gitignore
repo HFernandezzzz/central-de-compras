@@ -1,0 +1,36 @@
+# ---------------------------------------------------------------------------
+# DADOS REAIS — nunca versionar
+# ---------------------------------------------------------------------------
+# O painel guarda os dados dentro do próprio HTML gerado. Um arquivo desses, ou
+# um JSON de base real, carrega nome de fornecedor, CNPJ, preço praticado, conta
+# de usuário e hash de senha. Nada disso pode ir para o repositório.
+dist/
+data/*.json
+!data/dados_exemplo.json
+
+# Nomes comuns de base real, por precaução
+dados_reais*.json
+*_producao.json
+*_privado.json
+painel_*.html
+central_de_compras.html
+
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# ---------------------------------------------------------------------------
+# Sistema operacional e editores
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
