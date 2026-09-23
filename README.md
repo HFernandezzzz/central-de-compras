@@ -1,6 +1,6 @@
 # Central de Compras
 
-Painel de gestão de suprimentos que roda inteiro dentro de **um único arquivo HTML** — sem
+Painel de gestão de suprimentos que roda inteiro dentro de **um único arquivo HTML**, sem
 servidor, sem banco de dados, sem instalação e sem dependência externa. Abre com dois
 cliques, funciona offline e pode ser guardado num pen drive.
 
@@ -44,7 +44,7 @@ python3 build.py                       # monta dist/central-de-compras.html
 
 Abra `dist/central-de-compras.html` no navegador. Na primeira vez ele pede um cadastro:
 use o código de administrador de fábrica **`ADMIN-SETUP-2026`** para a primeira conta virar
-administradora — e **troque esse código** logo em seguida, na aba *Usuários*, já que ele é
+administradora, e **troque esse código** logo em seguida, na aba *Usuários*, já que ele é
 público aqui no repositório.
 
 ---
@@ -56,7 +56,7 @@ Indicadores do período (gasto, pedidos, fornecedores ativos, concentração), g
 por categoria, os dez maiores fornecedores e os pontos que merecem atenção do comprador.
 
 ### Fornecedores
-Cadastro consolidado — fornecedores que tinham mais de um código no ERP aparecem como um
+Cadastro consolidado, fornecedores que tinham mais de um código no ERP aparecem como um
 registro só, com o histórico inteiro junto. Cada um tem ficha completa: razão social, CNPJ,
 condição de pagamento, contato, endereço, avaliação por estrelas, status de homologação e
 anexo de certificados. Dá para cadastrar fornecedores que ainda não existem no ERP.
@@ -80,7 +80,7 @@ Comparação de propostas lado a lado. Cada proposta recebida vira uma aba com a
 fornecedor e os itens cotados (foto, marca, especificação, quantidade, preço, desconto,
 frete, MOQ, impostos). A tela de comparação traz:
 
-- **preço unitário líquido** — total com desconto e frete dividido pela quantidade, que é o
+- **preço unitário líquido**, total com desconto e frete dividido pela quantidade, que é o
   único jeito honesto de comparar propostas com quantidades diferentes;
 - **recomendação por preço**, com as ressalvas que importam: prazo de entrega maior,
   condição de pagamento melhor em outro fornecedor, proposta vencida, fornecedor não
@@ -96,7 +96,7 @@ frete, MOQ, impostos). A tela de comparação traz:
 
 ### Pedidos de compra
 Emitidos automaticamente quando uma cotação é aprovada. Registro de recebimento com data,
-quantidade, nota fiscal, anexo e sinalização de problema de qualidade — que realimenta o
+quantidade, nota fiscal, anexo e sinalização de problema de qualidade, que realimenta o
 indicador de desempenho do fornecedor.
 
 ### Agendamento de Compras
@@ -113,7 +113,7 @@ Itens estratégicos com fornecedor único, variação de preço fora do normal, 
 do reajuste, cotações aguardando decisão e fornecedores sem due diligence completa.
 
 ### Usuários e acesso
-Três papéis — administrador, operador e chefe de setor — com cadastro sujeito a aprovação.
+Três papéis: administrador, operador e chefe de setor, com cadastro sujeito a aprovação.
 Chefe de setor só enxerga a aba Hora Extra.
 
 ### No celular
@@ -137,11 +137,11 @@ python3 build.py data/meus_dados.json dist/meu-painel.html
 
 O formato está documentado em [`docs/FORMATO-DE-DADOS.md`](docs/FORMATO-DE-DADOS.md). Na
 prática, a origem costuma ser um relatório de pedidos de compra exportado do ERP, agregado
-por fornecedor e por item — foi assim que a base original nasceu.
+por fornecedor e por item, foi assim que a base original nasceu.
 
 Depois que o painel está em uso, **ele guarda os próprios dados dentro do arquivo HTML**:
 toda alteração reescreve o documento inteiro, com dados e código juntos. Não existe banco,
-nem API, nem sincronização — é um arquivo que sabe se regravar.
+nem API, nem sincronização, é um arquivo que sabe se regravar.
 
 ---
 
@@ -154,7 +154,7 @@ src/template.html   casca HTML + todo o CSS (design tokens, tema claro com verme
 src/app.js          a aplicação inteira: estado, regras de negócio e renderização
 data/*.json         os dados
         ↓  build.py
-dist/central-de-compras.html    um arquivo, ~500 KB, autossuficiente
+dist/central-de-compras.html    um arquivo, 500 KB, autossuficiente
 ```
 
 **JavaScript puro**, sem framework, sem etapa de transpilação e sem `node_modules`. O padrão
@@ -163,13 +163,13 @@ dist/central-de-compras.html    um arquivo, ~500 KB, autossuficiente
 - `STATE` guarda tudo que é persistido; `UI` guarda o que é só de tela (aba ativa, filtros,
   formulários abertos).
 - `render()` reconstrói `#app.innerHTML` inteiro a partir de `STATE` + `UI`.
-- Os eventos são tratados por **delegação no `document`** — um listener de `click`, um de
+- Os eventos são tratados por **delegação no `document`**, um listener de `click`, um de
   `input`, um de `change` e um de `keydown` para o aplicativo todo. Nenhum listener preso a
   elemento, então o redesenho total nunca deixa handler órfão.
 - `persist()` regrava o documento com os dados novos.
 
 Isso torna o código fácil de acompanhar de cima a baixo, ao custo de redesenhar tudo a cada
-ação — o que, para o volume de dados de um setor de compras, é imperceptível. Onde redesenhar
+ação, o que, para o volume de dados de um setor de compras, é imperceptível. Onde redesenhar
 seria um problema (a tabela editável do mapa comparativo, em que perder o foco a cada campo
 atrapalharia o preenchimento), as alterações são gravadas no estado e só os números
 derivados são reescritos na tela.
@@ -192,7 +192,7 @@ python3 tests/run_all.py              # monta tudo e roda os 12 arquivos
 python3 tests/run_all.py comparativo  # só os que casam com o nome
 ```
 
-O runner gera as bases, monta os HTML e executa os testes — não é preciso preparar nada
+O runner gera as bases, monta os HTML e executa os testes, não é preciso preparar nada
 antes. São cerca de 250 verificações cobrindo o fluxo de cotação de ponta a ponta, o mapa
 comparativo, a aprovação por exceção, o cálculo de preços (incluindo um teste de regressão
 para um bug de valor multiplicado por 100), a exportação em CSV, o modo escuro, a
